@@ -6,8 +6,8 @@ class GitlabAuthController < AccountController
   include Helpers::Checker
 
   def oauth_gitlab
-    if Setting.plugin_redmine_auth_gitlab[:use_gitlab_authentication]
-      session[:back_url] = params[:back_url]
+    if Setting.plugin_redmine_auth_gitlab['use_gitlab_authentication']
+      session[:back_url] = params['back_url']
       redirect_to oauth_client.auth_code.authorize_url(:redirect_uri => oauth_gitlab_callback_url, :scope => scopes)
     else
       password_authentication
@@ -20,7 +20,7 @@ class GitlabAuthController < AccountController
       redirect_to signin_path
     else
       token = oauth_client.auth_code.get_token(params[:code], :redirect_uri => oauth_gitlab_callback_url)
-      result = token.get("#{settings[:gitlab_url]}/api/v3/user")
+      result = token.get("#{settings['gitlab_url']}/api/v3/user")
       gitlab_user_info = JSON.parse(result.body)
       if gitlab_user_info && gitlab_user_info["email"]
         if allowed_domain_for?(gitlab_user_info["email"])
@@ -81,8 +81,8 @@ class GitlabAuthController < AccountController
   end
 
   def oauth_client
-    @client ||= OAuth2::Client.new(settings[:client_id], settings[:client_secret],
-      :site => settings[:gitlab_url],
+    @client ||= OAuth2::Client.new(settings['client_id'], settings['client_secret'],
+      :site => settings['gitlab_url'],
       :authorize_url => '/oauth/authorize',
       :token_url => '/oauth/token')
   end

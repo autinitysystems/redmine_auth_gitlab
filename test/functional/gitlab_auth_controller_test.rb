@@ -31,7 +31,7 @@ class GitlabAuthControllerTest < ActionController::TestCase
   end
 
   def test_oauth_gitlab_with_enabled_gitlab_authentication
-    Setting.plugin_redmine_auth_gitlab[:use_gitlab_authentication] = nil
+    Setting.plugin_redmine_auth_gitlab['use_gitlab_authentication'] = nil
     get :oauth_gitlab
     assert_response 404
   end
@@ -100,7 +100,7 @@ class GitlabAuthControllerTest < ActionController::TestCase
   end
 
   def test_oauth_gitlab_callback_with_not_allowed_email_domain
-    Setting.plugin_redmine_auth_gitlab[:allowed_domains] = "twinslash.com"
+    Setting.plugin_redmine_auth_gitlab['allowed_domains'] = "twinslash.com"
     set_response_body_stub
     get :oauth_gitlab_callback
     assert_redirected_to :signin
@@ -108,7 +108,7 @@ class GitlabAuthControllerTest < ActionController::TestCase
 
   def test_oauth_gitlab_callback_with_allowed_email_domain
     Setting.self_registration = '3'
-    Setting.plugin_redmine_auth_gitlab[:allowed_domains] = parse_email(@default_response_body[:email])[:domain]
+    Setting.plugin_redmine_auth_gitlab['allowed_domains'] = parse_email(@default_response_body[:email])[:domain]
     set_response_body_stub
     get :oauth_gitlab_callback
     assert_redirected_to :controller => 'my', :action => 'account'

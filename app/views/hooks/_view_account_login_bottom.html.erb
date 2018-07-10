@@ -1,6 +1,6 @@
 <%= stylesheet_link_tag 'buttons', :plugin => 'redmine_auth_gitlab' %>
 
-<% if Setting.plugin_redmine_auth_gitlab[:use_gitlab_authentication] %>
+<% if Setting.plugin_redmine_auth_gitlab['use_gitlab_authentication'] %>
   <%= content_tag :div, :class => 'gitlab-login' do %>
     <%= link_to oauth_gitlab_path(:back_url => back_url) do %>
       <%= button_tag :class => 'gitlab-login-button' do %>
