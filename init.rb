@@ -13,6 +13,7 @@ Redmine::Plugin.register :redmine_auth_gitlab do
     :client_id => ENV['REDMINE_GITLAB_CLIENT_ID'] || "",
     :client_secret => ENV['REDMINE_GITLAB_CLIENT_SECRET'] || "",
     :oauth_autentification => ENV['REDMINE_GITLAB_AUTH_ENABLED'] || false,
-    :allowed_domains => ENV['REDMINE_GITLAB_ALLOWED_DOMAINS'] || ""
+    :allowed_domains => ENV['REDMINE_GITLAB_ALLOWED_DOMAINS'] || "",
+    :gitlab_url      => ENV['REDMINE_GITLAB_URL'] || ""
   }, :partial => 'settings/gitlab_settings'
 end
